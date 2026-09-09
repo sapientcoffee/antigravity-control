@@ -1,0 +1,42 @@
+{
+  "name": "gcp-sre",
+  "displayName": "GCP Cloud & SRE Engineer",
+  "description": "Google Cloud Platform infrastructure, databases, networking, and observability.",
+  "enabled_plugins": [
+    "antigravity-hub"
+  ],
+  "disabled_plugins": [
+    "bean-to-cup",
+    "bean-grinder",
+    "chrome-devtools-plugin",
+    "firebase",
+    "google-antigravity-sdk",
+    "modern-web-guidance-plugin",
+    "stitch-build",
+    "stitch-design",
+    "stitch-utilities"
+  ],
+  "active_skills": [
+    "git-delivery",
+    "agy-customizations",
+    "antigravity-guide",
+    "graphify",
+    "gcloud",
+    "cloud-run-basics",
+    "cloud-sql-basics",
+    "alloydb-basics",
+    "bigquery-basics",
+    "gke-basics",
+    "google-cloud-networking-observability",
+    "google-cloud-recipe-auth",
+    "google-cloud-recipe-onboarding",
+    "google-cloud-waf-cost-optimization",
+    "google-cloud-waf-operational-excellence",
+    "google-cloud-waf-performance-optimization",
+    "google-cloud-waf-reliability",
+    "google-cloud-waf-security",
+    "google-cloud-waf-sustainability",
+    "iam-recommendations-fetcher",
+    "chaos-mitigation"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "name": "fullstack",
+  "displayName": "Full-Stack Web Engineer",
+  "description": "Modern web development, React/Vite, UI components, Chrome DevTools debugging.",
+  "enabled_plugins": [
+    "antigravity-hub",
+    "modern-web-guidance-plugin",
+    "chrome-devtools-plugin"
+  ],
+  "disabled_plugins": [
+    "bean-to-cup",
+    "bean-grinder",
+    "firebase",
+    "google-antigravity-sdk",
+    "stitch-build",
+    "stitch-design",
+    "stitch-utilities"
+  ],
+  "active_skills": [
+    "git-delivery",
+    "agy-customizations",
+    "antigravity-guide",
+    "graphify",
+    "react-vite-dashboard",
+    "shadcn-ui",
+    "a11y-debugging",
+    "chrome-devtools",
+    "chrome-extensions",
+    "debug-optimize-lcp",
+    "memory-leak-debugging",
+    "troubleshooting",
+    "modern-web-guidance"
+  ]
+}

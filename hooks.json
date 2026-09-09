@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./hooks/check-updates.sh",
+            "description": "Checks for outdated Antigravity plugins upon session launch"
+          }
+        ]
+      }
+    ]
+  }
+}

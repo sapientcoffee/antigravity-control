@@ -1,0 +1,35 @@
+{
+  "name": "architect",
+  "displayName": "Software Architect (Bean-to-Cup)",
+  "description": "System architecture, Socratic requirements grilling, PRDs, domain modeling, and red-team audits.",
+  "enabled_plugins": [
+    "antigravity-hub",
+    "bean-to-cup"
+  ],
+  "disabled_plugins": [
+    "bean-grinder",
+    "chrome-devtools-plugin",
+    "firebase",
+    "google-antigravity-sdk",
+    "modern-web-guidance-plugin",
+    "stitch-build",
+    "stitch-design",
+    "stitch-utilities"
+  ],
+  "active_skills": [
+    "git-delivery",
+    "agy-customizations",
+    "antigravity-guide",
+    "graphify",
+    "ideator",
+    "grill",
+    "write-prd",
+    "domain-modeling",
+    "feature",
+    "kanban",
+    "audit-code",
+    "research",
+    "sync",
+    "visual-dashboard"
+  ]
+}

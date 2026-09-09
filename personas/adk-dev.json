@@ -1,0 +1,48 @@
+{
+  "name": "adk-dev",
+  "displayName": "AI Agent Developer (ADK / AGY SDK)",
+  "description": "Building AI agents with Google ADK, Agent Platform, and Antigravity SDK.",
+  "enabled_plugins": [
+    "antigravity-hub",
+    "google-antigravity-sdk"
+  ],
+  "disabled_plugins": [
+    "bean-to-cup",
+    "bean-grinder",
+    "chrome-devtools-plugin",
+    "firebase",
+    "modern-web-guidance-plugin",
+    "stitch-build",
+    "stitch-design",
+    "stitch-utilities"
+  ],
+  "active_skills": [
+    "git-delivery",
+    "agy-customizations",
+    "antigravity-guide",
+    "graphify",
+    "google-antigravity-sdk",
+    "google-agents-cli-adk-code",
+    "google-agents-cli-deploy",
+    "google-agents-cli-eval",
+    "google-agents-cli-observability",
+    "google-agents-cli-publish",
+    "google-agents-cli-scaffold",
+    "google-agents-cli-workflow",
+    "agent-platform-alert-configuration",
+    "agent-platform-deploy",
+    "agent-platform-endpoint-management",
+    "agent-platform-eval-flywheel",
+    "agent-platform-inference",
+    "agent-platform-migrate-from-ai-studio",
+    "agent-platform-model-registry",
+    "agent-platform-prompt-management",
+    "agent-platform-rag-engine-management",
+    "agent-platform-skill-registry",
+    "agent-platform-tuning",
+    "agent-platform-tuning-management",
+    "gemini-agents-api",
+    "gemini-api",
+    "gemini-interactions-api"
+  ]
+}

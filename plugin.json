@@ -1,0 +1,17 @@
+{
+  "name": "antigravity-hub",
+  "version": "1.0.0",
+  "description": "Dynamic persona switcher, minimalist skill/subagent curator, and plugin version audit engine for Antigravity CLI and Hub.",
+  "author": {
+    "name": "Rob Edwards"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "antigravity",
+    "personas",
+    "skills",
+    "plugins",
+    "lifecycle",
+    "hub"
+  ]
+}

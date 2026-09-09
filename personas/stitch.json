@@ -1,0 +1,40 @@
+{
+  "name": "stitch",
+  "displayName": "Stitch UI/UX Designer",
+  "description": "Google Stitch UI/UX design generation, design systems, and Remotion walkthroughs.",
+  "enabled_plugins": [
+    "antigravity-hub",
+    "stitch-build",
+    "stitch-design",
+    "stitch-utilities"
+  ],
+  "disabled_plugins": [
+    "bean-to-cup",
+    "bean-grinder",
+    "chrome-devtools-plugin",
+    "firebase",
+    "google-antigravity-sdk",
+    "modern-web-guidance-plugin"
+  ],
+  "active_skills": [
+    "git-delivery",
+    "agy-customizations",
+    "antigravity-guide",
+    "graphify",
+    "design-md",
+    "enhance-prompt",
+    "react-vite-dashboard",
+    "remotion",
+    "shadcn-ui",
+    "stitch-code-to-design",
+    "stitch-extract-design-md",
+    "stitch-extract-static-html",
+    "stitch-generate-design",
+    "stitch-loop",
+    "stitch-manage-design-system",
+    "stitch-react-components",
+    "stitch-react-native",
+    "stitch-upload-to-stitch",
+    "taste-design"
+  ]
+}

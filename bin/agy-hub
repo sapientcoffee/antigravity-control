@@ -1,0 +1,33 @@
+#!/bin/bash
+# Antigravity Hub CLI Dispatcher
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+case "$1" in
+    persona|switch|profile)
+        shift
+        python3 "$DIR/../scripts/persona_manager.py" "$@"
+        ;;
+    plugins|plugin|update|check)
+        shift
+        python3 "$DIR/../scripts/update_plugins.py" "$@"
+        ;;
+    *)
+        echo -e "\033[1;35mAntigravity Hub Manager (agy-hub)\033[0m"
+        echo "Usage: agy-hub <command> [args...]"
+        echo ""
+        echo "Persona Commands:"
+        echo "  agy-hub persona list             List available personas"
+        echo "  agy-hub persona switch <name>    Switch active persona (core, architect, fullstack, stitch, gcp-sre, adk-dev)"
+        echo "  agy-hub persona current          Show current active persona and components"
+        echo "  agy-hub persona load <name>      Temporarily load a skill or plugin"
+        echo "  agy-hub persona unload <name>    Temporarily unload a skill or plugin"
+        echo "  agy-hub persona reset            Reset to minimal core persona"
+        echo ""
+        echo "Plugin & Update Commands:"
+        echo "  agy-hub plugins list             List installed plugins and versions"
+        echo "  agy-hub plugins check            Check plugins for upstream GitHub/git updates"
+        echo "  agy-hub plugins update [name]    Update outdated plugins (or 'all')"
+        echo ""
+        exit 0
+        ;;
+esac
