@@ -255,11 +255,6 @@ To compile the native `bin/agyctl` binary:
 go build -o bin/agyctl ./cmd/agyctl
 ```
 
-You can also run the legacy integration test suite:
-```bash
-python3 -m unittest discover tests/
-```
-
 ---
 
 ## ☕ The Sapient Barista Family
