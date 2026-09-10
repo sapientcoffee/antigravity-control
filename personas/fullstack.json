@@ -3,7 +3,7 @@
   "displayName": "Full-Stack Web Engineer",
   "description": "Modern web development, React/Vite, UI components, Chrome DevTools debugging.",
   "enabled_plugins": [
-    "antigravity-hub",
+    "antigravity-control",
     "modern-web-guidance-plugin",
     "chrome-devtools-plugin"
   ],

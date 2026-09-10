@@ -3,7 +3,7 @@
   "displayName": "GCP Cloud & SRE Engineer",
   "description": "Google Cloud Platform infrastructure, databases, networking, and observability.",
   "enabled_plugins": [
-    "antigravity-hub"
+    "antigravity-control"
   ],
   "disabled_plugins": [
     "bean-to-cup",

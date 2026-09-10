@@ -2,7 +2,7 @@
   "name": "core",
   "displayName": "Minimalist Core",
   "description": "Minimalist baseline for everyday development, dotfiles, and general coding.",
-  "enabled_plugins": ["antigravity-hub"],
+  "enabled_plugins": ["antigravity-control"],
   "disabled_plugins": [
     "bean-to-cup",
     "bean-grinder",

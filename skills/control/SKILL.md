@@ -1,11 +1,11 @@
 ---
-name: hub
+name: control
 description: >-
-  Antigravity Hub orchestrator. Use this skill when the user asks to manage, audit,
-  check updates for, or update Antigravity plugins, skills, or subagents.
+  Antigravity Control orchestrator. Use this skill when the user asks to manage, audit,
+  check updates for, or update Antigravity plugins, skills, or personas via agyctl.
 ---
 
-# Antigravity Hub Skill
+# Antigravity Control Skill (`agyctl`)
 
 Use this skill to inspect and update Antigravity plugins and manage their upstream lifecycles.
 
@@ -14,24 +14,24 @@ Use this skill to inspect and update Antigravity plugins and manage their upstre
 ### 1. Check Plugin Versions & Upstream Updates
 Run the plugin checker:
 ```bash
-agy-plugins check
+agyctl plugins check
 ```
 Or view formatted markdown:
 ```bash
-agy-plugins check --markdown
+agyctl plugins check --markdown
 ```
 
 ### 2. Update Outdated Plugins
 Update all outdated plugins:
 ```bash
-agy-plugins update all
+agyctl plugins update all
 ```
 Or update a specific plugin:
 ```bash
-agy-plugins update bean-to-cup
+agyctl plugins update bean-to-cup
 ```
 
 ### 3. List Installed Plugins
 ```bash
-agy-plugins list
+agyctl plugins list
 ```

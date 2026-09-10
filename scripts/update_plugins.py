@@ -232,7 +232,7 @@ def print_table(results: List[Dict]):
 
     outdated = [r for r in results if r["status"] == "OUTDATED"]
     if outdated:
-        print(f"\033[1;33m💡 {len(outdated)} plugin(s) have updates available!\033[0m Run \033[1;36magy-plugins update [name|all]\033[0m to update.\n")
+        print(f"\033[1;33m💡 {len(outdated)} plugin(s) have updates available!\033[0m Run \033[1;36magyctl update [name|all]\033[0m to update.\n")
     else:
         print("\033[1;32m All Antigravity plugins are up-to-date.\033[0m\n")
 
@@ -248,7 +248,7 @@ def print_markdown(results: List[Dict]):
     for item in outdated:
         print(f"- **`{item['name']}`**: `{item['local_version']}` ➔ `{item['remote_version']}` ({item.get('details', '')})")
     print("")
-    print("Run `agy-plugins update` to update.")
+    print("Run `agyctl update` to update.")
 
 
 def update_plugin(item: Dict) -> bool:

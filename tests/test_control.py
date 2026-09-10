@@ -20,11 +20,12 @@ import sys
 import unittest
 
 REPO_DIR = Path(__file__).resolve().parent.parent
+BIN_DIR = REPO_DIR / "bin"
 SCRIPTS_DIR = REPO_DIR / "scripts"
 PERSONAS_DIR = REPO_DIR / "personas"
 
 
-class TestAntigravityHub(unittest.TestCase):
+class TestAntigravityControl(unittest.TestCase):
 
     def test_persona_files_valid(self):
         """All persona files should be valid JSON and contain required keys."""
@@ -39,10 +40,11 @@ class TestAntigravityHub(unittest.TestCase):
                 self.assertIn("enabled_plugins", data)
                 self.assertIn("disabled_plugins", data)
                 self.assertIn("active_skills", data)
+                self.assertIn("antigravity-control", data["enabled_plugins"])
 
-    def test_persona_manager_list(self):
-        """persona_manager.py list should execute with exit code 0."""
-        cmd = [sys.executable, str(SCRIPTS_DIR / "persona_manager.py"), "list"]
+    def test_agyctl_list(self):
+        """agyctl list should execute with exit code 0."""
+        cmd = [str(BIN_DIR / "agyctl"), "list"]
         res = subprocess.run(cmd, capture_output=True, text=True)
         self.assertEqual(res.returncode, 0)
         self.assertIn("core", res.stdout)
@@ -50,9 +52,9 @@ class TestAntigravityHub(unittest.TestCase):
         self.assertIn("fullstack", res.stdout)
         self.assertIn("stitch", res.stdout)
 
-    def test_update_plugins_audit(self):
-        """update_plugins.py check should execute cleanly."""
-        cmd = [sys.executable, str(SCRIPTS_DIR / "update_plugins.py"), "check", "--json"]
+    def test_agyctl_check(self):
+        """agyctl check should execute cleanly."""
+        cmd = [str(BIN_DIR / "agyctl"), "check", "--json"]
         res = subprocess.run(cmd, capture_output=True, text=True)
         # returncode is 0 (all up to date) or 1 (updates available)
         self.assertIn(res.returncode, [0, 1])

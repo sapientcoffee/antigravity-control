@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-CACHE_DIR="$HOME/.cache/antigravity-hub"
+CACHE_DIR="$HOME/.cache/antigravity-control"
 CACHE_OUT="$CACHE_DIR/cached_notice.md"
 TS_FILE="$CACHE_DIR/last_check_ts"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

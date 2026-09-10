@@ -3,7 +3,7 @@
   "displayName": "Stitch UI/UX Designer",
   "description": "Google Stitch UI/UX design generation, design systems, and Remotion walkthroughs.",
   "enabled_plugins": [
-    "antigravity-hub",
+    "antigravity-control",
     "stitch-build",
     "stitch-design",
     "stitch-utilities"

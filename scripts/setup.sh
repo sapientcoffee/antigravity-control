@@ -26,7 +26,7 @@ CATALOG_DIR="$HOME_DIR/.gemini/catalog/skills"
 BIN_DIR="$HOME_DIR/.local/bin"
 AGENTS_SKILLS_DIR="$HOME_DIR/.agents/skills"
 
-echo -e "\033[1;35m==> Installing Antigravity Hub...\033[0m"
+echo -e "\033[1;35m==> Installing Antigravity Control (agyctl)...\033[0m"
 
 # 1. Ensure catalog directory exists
 mkdir -p "$CATALOG_DIR"
@@ -60,21 +60,26 @@ done
 echo " Catalog populated with $(ls -1 "$CATALOG_DIR" | wc -l) skills."
 
 # 3. Install CLI binaries to ~/.local/bin
-echo "Installing CLI commands to $BIN_DIR..."
-ln -sf "$REPO_DIR/bin/agy-hub" "$BIN_DIR/agy-hub"
-ln -sf "$REPO_DIR/bin/agy-persona" "$BIN_DIR/agy-persona"
-ln -sf "$REPO_DIR/bin/agy-plugins" "$BIN_DIR/agy-plugins"
+echo "Installing agyctl to $BIN_DIR..."
+ln -sf "$REPO_DIR/bin/agyctl" "$BIN_DIR/agyctl"
+
+# Remove deprecated hub links if present
+rm -f "$BIN_DIR/agy-hub" "$BIN_DIR/agy-persona" "$BIN_DIR/agy-plugins"
+rm -f "$PLUGINS_DIR/antigravity-hub"
 
 # 4. Link plugin to Antigravity plugins directory so hooks and skills are active
-echo "Registering antigravity-hub plugin with Antigravity..."
-ln -sfn "$REPO_DIR" "$PLUGINS_DIR/antigravity-hub"
+echo "Registering antigravity-control plugin with Antigravity..."
+ln -sfn "$REPO_DIR" "$PLUGINS_DIR/antigravity-control"
 
 # 5. Clean up old bloated symlinks in ~/.agents/skills so $HOME is no longer cluttered
 if [ -d "$AGENTS_SKILLS_DIR" ]; then
-    BACKUP_DIR="$HOME_DIR/.agents/skills_backup_$(date +%Y%m%d_%H%M%S)"
-    echo "Backing up and resetting $AGENTS_SKILLS_DIR to $BACKUP_DIR..."
-    mv "$AGENTS_SKILLS_DIR" "$BACKUP_DIR"
-    mkdir -p "$AGENTS_SKILLS_DIR"
+    # Only backup if non-empty
+    if [ "$(ls -A "$AGENTS_SKILLS_DIR" 2>/dev/null)" ]; then
+        BACKUP_DIR="$HOME_DIR/.agents/skills_backup_$(date +%Y%m%d_%H%M%S)"
+        echo "Backing up and resetting $AGENTS_SKILLS_DIR to $BACKUP_DIR..."
+        mv "$AGENTS_SKILLS_DIR" "$BACKUP_DIR"
+        mkdir -p "$AGENTS_SKILLS_DIR"
+    fi
 fi
 
 # 6. Apply minimal core persona
@@ -82,6 +87,6 @@ echo "Applying default 'core' minimalist persona..."
 python3 "$REPO_DIR/scripts/persona_manager.py" switch core
 
 echo ""
-echo -e "\033[1;32m🎉 Antigravity Hub installed successfully!\033[0m"
-echo "Run 'agy-persona list' to inspect available personas."
-echo "Run 'agy-plugins check' to audit plugin versions."
+echo -e "\033[1;32m🎉 Antigravity Control (agyctl) installed successfully!\033[0m"
+echo "Run 'agyctl list' to inspect available personas."
+echo "Run 'agyctl check' to audit plugin versions."

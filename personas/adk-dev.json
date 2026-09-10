@@ -3,7 +3,7 @@
   "displayName": "AI Agent Developer (ADK / AGY SDK)",
   "description": "Building AI agents with Google ADK, Agent Platform, and Antigravity SDK.",
   "enabled_plugins": [
-    "antigravity-hub",
+    "antigravity-control",
     "google-antigravity-sdk"
   ],
   "disabled_plugins": [

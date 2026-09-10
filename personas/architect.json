@@ -3,7 +3,7 @@
   "displayName": "Software Architect (Bean-to-Cup)",
   "description": "System architecture, Socratic requirements grilling, PRDs, domain modeling, and red-team audits.",
   "enabled_plugins": [
-    "antigravity-hub",
+    "antigravity-control",
     "bean-to-cup"
   ],
   "disabled_plugins": [

@@ -2,10 +2,10 @@
 name: persona
 description: >-
   Antigravity Persona Switcher. Use this skill when the user asks to switch personas,
-  load or unload skills/plugins, or reset to a minimalist core configuration.
+  load or unload skills/plugins, or reset to a minimalist core configuration using agyctl.
 ---
 
-# Antigravity Persona Switcher
+# Antigravity Persona Switcher (`agyctl persona`)
 
 Use this skill to dynamically reconfigure Antigravity's active plugins and skills based on the desired persona or task.
 
@@ -22,26 +22,32 @@ Use this skill to dynamically reconfigure Antigravity's active plugins and skill
 
 ### Switch Persona
 ```bash
-agy-persona switch <persona-name>
+agyctl persona switch <persona-name>
+# or shortcut:
+agyctl switch <persona-name>
 ```
 
 ### Show Current Persona
 ```bash
-agy-persona current
+agyctl persona current
+# or shortcut:
+agyctl current
 ```
 
 ### List Available Personas
 ```bash
-agy-persona list
+agyctl persona list
+# or shortcut:
+agyctl personas
 ```
 
 ### Temporarily Load / Unload Component
 ```bash
-agy-persona load <skill-or-plugin-name>
-agy-persona unload <skill-or-plugin-name>
+agyctl load <skill-or-plugin-name>
+agyctl unload <skill-or-plugin-name>
 ```
 
 ### Reset to Minimal Core
 ```bash
-agy-persona reset
+agyctl reset
 ```
