@@ -110,12 +110,13 @@ Antigravity Control ships with 6 curated persona profiles in [`personas/`](perso
 
 Installed plugins often receive upstream updates (new skills, updated schemas, bug fixes). Tracking them manually across dozens of repositories is tedious.
 
-**`agyctl`** solves this by maintaining an automated upstream audit engine:
-1. **GitHub Releases & Tags**: Queries upstream repositories via GitHub's CLI (`gh api`) for semantic releases.
-2. **Git Remotes**: For workspace checkouts or git-based plugins, queries `git ls-remote` to detect upstream commit drift.
-3. **Non-Blocking Launch Hook (`hooks/check-updates.sh`)**:
+**`agyctl`** provides a native, concurrent upstream audit engine:
+1. **GitHub Releases & Tags**: Direct HTTPS queries to the GitHub API with token auth (`GITHUB_TOKEN`, `GH_TOKEN`, or `gh auth token`), with fallback to the `gh api` CLI.
+2. **Git Remotes**: For workspace checkouts or git-based plugins, executes non-blocking `git ls-remote` inspections with strict timeouts to detect upstream commit drift.
+3. **Concurrent Worker Pool**: Audits all installed plugins in parallel using bounded goroutines, finishing audits across dozens of plugins in ~1 second.
+4. **Sub-3ms Launch Hook (`agyctl hook session-start`)**:
    - Executes automatically upon every Antigravity session start (`SessionStart`).
-   - Uses a **6-hour cache (`TTL=21600`)** so CLI startup takes **~18ms**.
+   - Uses a **6-hour cache (`TTL=21600`)** so CLI startup takes **< 3ms**.
    - If updates are detected, injects an actionable Markdown notification into the session context:
 
 ```markdown
@@ -142,11 +143,13 @@ cd ~/workspace/antigravity-control
 ```
 
 ### What `setup.sh` Executes:
-1. **Populates Catalog**: Safely harvests all existing skills from `~/.agents/skills/` into `~/.gemini/catalog/skills/`.
-2. **Quarantines Home Directory Sprawl**: Backs up and cleans `~/.agents/skills/` so starting a shell in `$HOME` does not inject 60+ unmanaged skills.
-3. **Installs Global CLI Tools**: Symlinks `agyctl` into `~/.local/bin/agyctl`.
-4. **Registers Plugin & Hook**: Links `antigravity-control` into `~/.gemini/config/plugins/` so its `SessionStart` hook is active.
-5. **Applies Minimalist Core**: Sets the active persona to `core` by default.
+1. **Populates Skill Catalog**: Safely harvests all existing skills from `~/.agents/skills/` into `~/.gemini/catalog/skills/`.
+2. **Installs Persona Profiles**: Copies all persona definition profiles into `~/.gemini/personas/`.
+3. **Builds Native Go Binary**: Compiles `bin/agyctl` from `cmd/agyctl` with Go.
+4. **Installs Global CLI Tools**: Symlinks `agyctl` into `~/.local/bin/agyctl`.
+5. **Registers Plugin & Hook**: Links `antigravity-control` into `~/.gemini/config/plugins/` so its `SessionStart` hook is active.
+6. **Quarantines Home Directory Sprawl**: Backs up and cleans `~/.agents/skills/` so starting a shell in `$HOME` does not inject 60+ unmanaged skills.
+7. **Applies Minimalist Core**: Sets the active persona to `core` by default using `agyctl switch core`.
 
 ---
 
@@ -230,24 +233,31 @@ agyctl update bean-to-cup
 | `agyctl plugins update [all\|name]` | `agyctl update [name]` | Pull latest upstream commits or release updates |
 | `agyctl plugins list` | `agyctl plugins` | List local versions and configurations of all installed plugins |
 
+### Lifecycle Hooks & Utility Commands
+| Command | Shortcut | Description |
+| :--- | :--- | :--- |
+| `agyctl hook session-start` | - | Non-blocking, cached upstream check for Antigravity SessionStart (< 3ms cached) |
+| `agyctl version` | - | Display the agyctl release version |
+
 ---
 
-## 🧪 Automated Testing
+## 🧪 Automated Testing & Build
 
-Antigravity Control includes unit tests verifying persona JSON schema integrity, `agyctl` CLI execution, update audits, and launch hook speed:
+Antigravity Control is built with Go and Cobra. You can run the complete unit and end-to-end test suite using Go:
 
 ```bash
 cd ~/workspace/antigravity-control
+go test -v ./...
+```
+
+To compile the native `bin/agyctl` binary:
+```bash
+go build -o bin/agyctl ./cmd/agyctl
+```
+
+You can also run the legacy integration test suite:
+```bash
 python3 -m unittest discover tests/
-```
-
-Expected output:
-```
-....
-----------------------------------------------------------------------
-Ran 4 tests in 2.2s
-
-OK
 ```
 
 ---

@@ -59,7 +59,17 @@ done
 
 echo " Catalog populated with $(ls -1 "$CATALOG_DIR" | wc -l) skills."
 
-# 3. Install CLI binaries to ~/.local/bin
+PERSONAS_DIR="$HOME_DIR/.gemini/personas"
+mkdir -p "$PERSONAS_DIR"
+if [ -d "$REPO_DIR/personas" ]; then
+    echo "Installing persona profiles to $PERSONAS_DIR..."
+    cp -r "$REPO_DIR/personas/"*.json "$PERSONAS_DIR/"
+fi
+
+# 3. Build and install Go CLI binary
+echo "Building agyctl Go binary..."
+go build -o "$REPO_DIR/bin/agyctl" "$REPO_DIR/cmd/agyctl"
+
 echo "Installing agyctl to $BIN_DIR..."
 ln -sf "$REPO_DIR/bin/agyctl" "$BIN_DIR/agyctl"
 
@@ -84,7 +94,7 @@ fi
 
 # 6. Apply minimal core persona
 echo "Applying default 'core' minimalist persona..."
-python3 "$REPO_DIR/scripts/persona_manager.py" switch core
+"$REPO_DIR/bin/agyctl" switch core
 
 echo ""
 echo -e "\033[1;32m🎉 Antigravity Control (agyctl) installed successfully!\033[0m"

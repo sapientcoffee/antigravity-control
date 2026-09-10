@@ -14,24 +14,40 @@ Use this skill to inspect and update Antigravity plugins and manage their upstre
 ### 1. Check Plugin Versions & Upstream Updates
 Run the plugin checker:
 ```bash
+agyctl check
+# or grouped command:
 agyctl plugins check
 ```
-Or view formatted markdown:
+View formatted markdown (used for session hooks):
 ```bash
-agyctl plugins check --markdown
+agyctl check --markdown
+```
+Or output as JSON:
+```bash
+agyctl check --json
 ```
 
 ### 2. Update Outdated Plugins
 Update all outdated plugins:
 ```bash
+agyctl update all
+# or grouped command:
 agyctl plugins update all
 ```
 Or update a specific plugin:
 ```bash
-agyctl plugins update bean-to-cup
+agyctl update <plugin-name>
 ```
 
 ### 3. List Installed Plugins
 ```bash
+agyctl plugins
+# or:
 agyctl plugins list
+```
+
+### 4. Lifecycle Session Hook
+Execute the non-blocking upstream freshness check (cached with 6-hour TTL):
+```bash
+agyctl hook session-start
 ```
