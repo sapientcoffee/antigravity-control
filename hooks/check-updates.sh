@@ -13,30 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-CACHE_DIR="$HOME/.cache/antigravity-control"
-CACHE_OUT="$CACHE_DIR/cached_notice.md"
-TS_FILE="$CACHE_DIR/last_check_ts"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ENGINE="$SCRIPT_DIR/../scripts/update_plugins.py"
+BIN="$SCRIPT_DIR/../bin/agyctl"
 
-mkdir -p "$CACHE_DIR"
-
-NOW=$(date +%s)
-LAST_CHECK=0
-if [ -f "$TS_FILE" ]; then
-    LAST_CHECK=$(cat "$TS_FILE" 2>/dev/null || echo 0)
-fi
-
-AGE=$((NOW - LAST_CHECK))
-# Check every 6 hours (21600s)
-TTL=21600
-
-if [ $AGE -gt $TTL ] || [ ! -f "$CACHE_OUT" ]; then
-    python3 "$ENGINE" check --markdown > "$CACHE_OUT" 2>/dev/null
-    echo "$NOW" > "$TS_FILE"
-fi
-
-# If there is cached markdown notice, output it to stdout for AGY session injection
-if [ -f "$CACHE_OUT" ] && [ -s "$CACHE_OUT" ]; then
-    cat "$CACHE_OUT"
+if [ -x "$BIN" ]; then
+    exec "$BIN" hook session-start
+elif command -v agyctl >/dev/null 2>&1; then
+    exec agyctl hook session-start
 fi
