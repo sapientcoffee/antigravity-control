@@ -158,11 +158,12 @@ cd ~/workspace/antigravity-control
 ### Example 1: Morning Check & Minimalist Baseline
 Start your day with a lightning-fast, uncluttered Antigravity environment:
 ```bash
-# Check current persona and loaded components
+# Check current persona, config location, and loaded components
 agyctl current
 
 # Output:
 # Active Persona : Minimalist Core (core)
+# Config Location: ~/.gemini/personas/core.json
 # Description    : Minimalist baseline for everyday development, dotfiles, and general coding.
 # Active Skills  (2): git-delivery, graphify
 # Active Plugins (1): antigravity-control
@@ -175,7 +176,8 @@ agyctl switch stitch
 
 # Output:
 #  switched to persona: Stitch UI/UX Designer (stitch)
-#    Description: Google Stitch UI/UX design generation, design systems, and Remotion walkthroughs.
+#    Config Location : ~/.gemini/personas/stitch.json
+#    Description     : Google Stitch UI/UX design generation, design systems, and Remotion walkthroughs.
 #    Plugins enabled : stitch-utilities, antigravity-control, stitch-build, stitch-design
 #    Skills active   : 17 loaded
 ```
@@ -219,9 +221,10 @@ agyctl update bean-to-cup
 ### Persona & Context Commands
 | Command | Shortcut | Description |
 | :--- | :--- | :--- |
-| `agyctl persona list` | `agyctl list` / `agyctl personas` | List all available personas with description, plugins, and skill counts |
+| `agyctl persona list` | `agyctl list` / `agyctl personas` | List all available personas with config paths, description, plugins, and skill counts |
 | `agyctl persona switch <name>` | `agyctl switch <name>` | Switch active persona (`core`, `architect`, `fullstack`, `stitch`, `gcp-sre`, `adk-dev`) |
-| `agyctl persona current` | `agyctl current` / `agyctl status` | Display active persona, loaded skills list, and enabled plugins |
+| `agyctl persona current` | `agyctl current` / `agyctl status` | Display active persona, config JSON location, loaded skills list, and enabled plugins |
+| `agyctl persona path [name]` | `agyctl path [name]` | Print absolute path of persona JSON config file (or directory with `--dir`) |
 | `agyctl persona reset` | `agyctl reset` | Return to minimal baseline (`core` profile) |
 | `agyctl persona load <name>` | `agyctl load <name>` | Temporarily load an individual skill or plugin into the active session |
 | `agyctl persona unload <name>` | `agyctl unload <name>` | Temporarily unload a skill or plugin |

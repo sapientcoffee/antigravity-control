@@ -27,11 +27,25 @@ agyctl persona switch <persona-name>
 agyctl switch <persona-name>
 ```
 
-### Show Current Persona
+### Show Current Persona & Config Location
 ```bash
 agyctl persona current
 # or shortcut:
 agyctl current
+```
+
+### Inspect Persona Config File Location
+```bash
+# Print the JSON config file path of the active persona:
+agyctl persona path
+# or shortcut:
+agyctl path
+
+# Print the JSON config file path of a specific persona:
+agyctl persona path <persona-name>
+
+# Print the personas configuration directory:
+agyctl persona path --dir
 ```
 
 ### List Available Personas
