@@ -22,6 +22,7 @@ type Persona struct {
 	EnabledPlugins  []string `json:"enabled_plugins"`
 	DisabledPlugins []string `json:"disabled_plugins"`
 	ActiveSkills    []string `json:"active_skills"`
+	ConfigPath      string   `json:"config_path,omitempty"`
 }
 
 // SwitchResult contains the outcome of a persona switch operation.

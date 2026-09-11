@@ -81,9 +81,13 @@ func TestGetAvailablePersonas(t *testing.T) {
 	}
 	if _, ok := personas["core"]; !ok {
 		t.Errorf("missing core persona")
+	} else if personas["core"].ConfigPath != filepath.Join(paths.PersonasDir, "core.json") {
+		t.Errorf("unexpected ConfigPath for core: %s", personas["core"].ConfigPath)
 	}
 	if _, ok := personas["architect"]; !ok {
 		t.Errorf("missing architect persona")
+	} else if personas["architect"].ConfigPath != filepath.Join(paths.PersonasDir, "architect.json") {
+		t.Errorf("unexpected ConfigPath for architect: %s", personas["architect"].ConfigPath)
 	}
 }
 
@@ -97,6 +101,9 @@ func TestSwitchPersona(t *testing.T) {
 	}
 	if res.LinkedCount != 2 {
 		t.Errorf("expected 2 linked skills, got %d", res.LinkedCount)
+	}
+	if res.Persona.ConfigPath != filepath.Join(paths.PersonasDir, "core.json") {
+		t.Errorf("unexpected ConfigPath in SwitchResult: %s", res.Persona.ConfigPath)
 	}
 
 	// Verify symlinks exist in SkillsDir
@@ -118,6 +125,9 @@ func TestSwitchPersona(t *testing.T) {
 	}
 	if resArch.LinkedCount != 1 {
 		t.Errorf("expected 1 linked skill, got %d", resArch.LinkedCount)
+	}
+	if resArch.Persona.ConfigPath != filepath.Join(paths.PersonasDir, "architect.json") {
+		t.Errorf("unexpected ConfigPath in architect SwitchResult: %s", resArch.Persona.ConfigPath)
 	}
 
 	// git-delivery should no longer be linked
@@ -154,6 +164,9 @@ func TestGetCurrent(t *testing.T) {
 	}
 	if status.ActivePersonaName != "core" {
 		t.Errorf("got %s, want core", status.ActivePersonaName)
+	}
+	if status.Persona == nil || status.Persona.ConfigPath != filepath.Join(paths.PersonasDir, "core.json") {
+		t.Errorf("expected Persona.ConfigPath to be set, got %+v", status.Persona)
 	}
 	if len(status.ActiveSkills) != 2 {
 		t.Errorf("expected 2 active skills, got %d", len(status.ActiveSkills))
