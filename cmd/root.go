@@ -37,7 +37,9 @@ func NewRootCmd() *cobra.Command {
 		Short: "Antigravity Control (agyctl) - Dynamic Persona and Plugin Manager",
 		Long: `agyctl (Antigravity Control) manages active personas by updating Antigravity's
 plugin toggles and symlinking only relevant skills into the active skills discovery directory,
-preventing context bloat and keeping your environment minimalist and responsive.`,
+preventing context bloat and keeping your environment minimalist and responsive.
+
+Persona configuration JSON files are located in ~/.gemini/personas/ (e.g. core.json).`,
 		SilenceUsage:  true,
 		SilenceErrors: true,
 	}
@@ -55,6 +57,7 @@ preventing context bloat and keeping your environment minimalist and responsive.
 	rootCmd.AddCommand(NewResetCmd(pathsFn))
 	rootCmd.AddCommand(NewLoadCmd(pathsFn))
 	rootCmd.AddCommand(NewUnloadCmd(pathsFn))
+	rootCmd.AddCommand(NewPersonaPathCmd(pathsFn))
 	rootCmd.AddCommand(NewPersonaCmd(pathsFn))
 
 	// Plugin commands (direct shortcuts & plugin group)

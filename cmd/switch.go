@@ -48,8 +48,11 @@ func NewSwitchCmd(pathsFn func() (*config.Paths, error)) *cobra.Command {
 
 			out := cmd.OutOrStdout()
 			fmt.Fprintf(out, " switched to persona: \033[1;36m%s\033[0m (%s)\n", dispName, targetPersona)
+			if result.Persona.ConfigPath != "" {
+				fmt.Fprintf(out, "   Config Location : %s\n", result.Persona.ConfigPath)
+			}
 			if result.Persona.Description != "" {
-				fmt.Fprintf(out, "   Description: %s\n", result.Persona.Description)
+				fmt.Fprintf(out, "   Description     : %s\n", result.Persona.Description)
 			}
 			fmt.Fprintf(out, "   Plugins enabled : %s\n", strings.Join(result.EnabledPlugins, ", "))
 			fmt.Fprintf(out, "   Skills active   : %d loaded\n", result.LinkedCount)

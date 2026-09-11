@@ -44,7 +44,11 @@ func NewListCmd(pathsFn func() (*config.Paths, error)) *cobra.Command {
 			current := config.GetActivePersona(paths.StateFile)
 
 			out := cmd.OutOrStdout()
-			fmt.Fprintln(out, "\n\033[1;35mAntigravity Personas\033[0m")
+			dirInfo := ""
+			if paths.PersonasDir != "" {
+				dirInfo = fmt.Sprintf(" (%s)", paths.PersonasDir)
+			}
+			fmt.Fprintf(out, "\n\033[1;35mAntigravity Personas\033[0m%s\n", dirInfo)
 			fmt.Fprintln(out, strings.Repeat("=", 60))
 
 			var names []string
@@ -68,6 +72,9 @@ func NewListCmd(pathsFn func() (*config.Paths, error)) *cobra.Command {
 				fmt.Fprintf(out, "%s \033[1;37m%-14s\033[0m : %s\n", marker, name, dispName)
 				if data.Description != "" {
 					fmt.Fprintf(out, "     %s\n", data.Description)
+				}
+				if data.ConfigPath != "" {
+					fmt.Fprintf(out, "     Config  : %s\n", data.ConfigPath)
 				}
 				fmt.Fprintf(out, "     Plugins : %s\n", strings.Join(data.EnabledPlugins, ", "))
 				fmt.Fprintf(out, "     Skills  : %d configured\n\n", len(data.ActiveSkills))

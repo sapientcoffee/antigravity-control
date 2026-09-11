@@ -87,6 +87,9 @@ func TestSwitchAndCurrentCmd(t *testing.T) {
 	if !strings.Contains(outSwitch, "switched to persona") || !strings.Contains(outSwitch, "Minimalist Core") {
 		t.Errorf("unexpected switch output: %s", outSwitch)
 	}
+	if !strings.Contains(outSwitch, "Config Location :") || !strings.Contains(outSwitch, "core.json") {
+		t.Errorf("expected Config Location in switch output: %s", outSwitch)
+	}
 
 	// Test current
 	outCurrent, err := executeCommand("--gemini-dir", tmpDir, "current")
@@ -95,6 +98,9 @@ func TestSwitchAndCurrentCmd(t *testing.T) {
 	}
 	if !strings.Contains(outCurrent, "Active Persona") || !strings.Contains(outCurrent, "Minimalist Core") {
 		t.Errorf("unexpected current output: %s", outCurrent)
+	}
+	if !strings.Contains(outCurrent, "Config Location:") || !strings.Contains(outCurrent, "core.json") {
+		t.Errorf("expected Config Location in current output: %s", outCurrent)
 	}
 
 	// Test list
@@ -105,6 +111,9 @@ func TestSwitchAndCurrentCmd(t *testing.T) {
 	if !strings.Contains(outList, "* (active)") || !strings.Contains(outList, "core") {
 		t.Errorf("unexpected list output: %s", outList)
 	}
+	if !strings.Contains(outList, "Config  :") || !strings.Contains(outList, "core.json") {
+		t.Errorf("expected Config in list output: %s", outList)
+	}
 
 	// Test reset
 	outReset, err := executeCommand("--gemini-dir", tmpDir, "reset")
@@ -114,6 +123,9 @@ func TestSwitchAndCurrentCmd(t *testing.T) {
 	if !strings.Contains(outReset, "switched to persona") {
 		t.Errorf("unexpected reset output: %s", outReset)
 	}
+	if !strings.Contains(outReset, "Config Location :") || !strings.Contains(outReset, "core.json") {
+		t.Errorf("expected Config Location in reset output: %s", outReset)
+	}
 
 	// Test persona subcommands (e.g. persona current)
 	outPersonaCur, err := executeCommand("--gemini-dir", tmpDir, "persona", "current")
@@ -122,6 +134,60 @@ func TestSwitchAndCurrentCmd(t *testing.T) {
 	}
 	if !strings.Contains(outPersonaCur, "Active Persona") || !strings.Contains(outPersonaCur, "Minimalist Core") {
 		t.Errorf("unexpected persona current output: %s", outPersonaCur)
+	}
+	if !strings.Contains(outPersonaCur, "Config Location:") || !strings.Contains(outPersonaCur, "core.json") {
+		t.Errorf("expected Config Location in persona current output: %s", outPersonaCur)
+	}
+}
+
+func TestPersonaPathCmd(t *testing.T) {
+	tmpDir := setupTestCLIEnvironment(t)
+	paths, err := config.ResolvePaths(tmpDir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expectedCorePath := filepath.Join(paths.PersonasDir, "core.json")
+
+	// 1. persona path (active persona)
+	outPath, err := executeCommand("--gemini-dir", tmpDir, "persona", "path")
+	if err != nil {
+		t.Fatalf("persona path failed: %v, out: %s", err, outPath)
+	}
+	if strings.TrimSpace(outPath) != expectedCorePath {
+		t.Errorf("got %q, want %q", strings.TrimSpace(outPath), expectedCorePath)
+	}
+
+	// 2. persona path core (explicit persona)
+	outPathNamed, err := executeCommand("--gemini-dir", tmpDir, "persona", "path", "core")
+	if err != nil {
+		t.Fatalf("persona path core failed: %v", err)
+	}
+	if strings.TrimSpace(outPathNamed) != expectedCorePath {
+		t.Errorf("got %q, want %q", strings.TrimSpace(outPathNamed), expectedCorePath)
+	}
+
+	// 3. persona path --dir
+	outPathDir, err := executeCommand("--gemini-dir", tmpDir, "persona", "path", "--dir")
+	if err != nil {
+		t.Fatalf("persona path --dir failed: %v", err)
+	}
+	if strings.TrimSpace(outPathDir) != paths.PersonasDir {
+		t.Errorf("got %q, want %q", strings.TrimSpace(outPathDir), paths.PersonasDir)
+	}
+
+	// 4. direct shortcut: agyctl path
+	outShortcut, err := executeCommand("--gemini-dir", tmpDir, "path")
+	if err != nil {
+		t.Fatalf("path shortcut failed: %v", err)
+	}
+	if strings.TrimSpace(outShortcut) != expectedCorePath {
+		t.Errorf("got %q, want %q", strings.TrimSpace(outShortcut), expectedCorePath)
+	}
+
+	// 5. nonexistent persona error
+	_, errNonexistent := executeCommand("--gemini-dir", tmpDir, "persona", "path", "nonexistent")
+	if errNonexistent == nil {
+		t.Fatalf("expected error for nonexistent persona path")
 	}
 }
 

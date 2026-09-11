@@ -16,6 +16,7 @@ package cmd
 
 import (
 	"fmt"
+	"path/filepath"
 	"strings"
 
 	"github.com/sapientcoffee/antigravity-control/pkg/config"
@@ -42,6 +43,7 @@ func NewCurrentCmd(pathsFn func() (*config.Paths, error)) *cobra.Command {
 
 			displayName := status.ActivePersonaName
 			description := "N/A"
+			configLocation := "N/A"
 			if status.Persona != nil {
 				if status.Persona.DisplayName != "" {
 					displayName = status.Persona.DisplayName
@@ -49,10 +51,16 @@ func NewCurrentCmd(pathsFn func() (*config.Paths, error)) *cobra.Command {
 				if status.Persona.Description != "" {
 					description = status.Persona.Description
 				}
+				if status.Persona.ConfigPath != "" {
+					configLocation = status.Persona.ConfigPath
+				}
+			} else if paths.PersonasDir != "" {
+				configLocation = filepath.Join(paths.PersonasDir, status.ActivePersonaName+".json") + " (not found)"
 			}
 
 			out := cmd.OutOrStdout()
 			fmt.Fprintf(out, "Active Persona : \033[1;36m%s\033[0m (%s)\n", displayName, status.ActivePersonaName)
+			fmt.Fprintf(out, "Config Location: %s\n", configLocation)
 			fmt.Fprintf(out, "Description    : %s\n", description)
 
 			skillsSample := status.ActiveSkills
