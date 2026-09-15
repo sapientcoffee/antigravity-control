@@ -56,6 +56,11 @@ func GetAvailablePersonas(paths *config.Paths) (map[string]Persona, error) {
 			if p.DisplayName == "" {
 				p.DisplayName = p.Name
 			}
+			if absPath, err := filepath.Abs(filePath); err == nil {
+				p.ConfigPath = absPath
+			} else {
+				p.ConfigPath = filePath
+			}
 			personas[p.Name] = p
 		}
 	}
